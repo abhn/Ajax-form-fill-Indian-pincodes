@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>Pincodes</title>
+	<script src="js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div id="form">
+	<label for="pincode">Pincode:</label>
+	<input type="text" name="pincode" id="pincode" required /><br />
+
+	<label for="taluka">Taluka:</label>
+	<input type="text" name="taluka" id="taluka" /><br />
+	<label for="district">District: </label>
+	<input type="text" name="district" id="district"><br />
+	<label for="state">State:</label>
+	<input type="text" name="state" id="state"><br />
+</div>
+<script>
+$(document).ready(function() {
+	$('#pincode').keyup(function(e) {
+		var pincode = $(this).val();
+		
+		if(pincode.length == 6 && $.isNumeric(pincode)) {
+			var req = 'retrive.php?pincode=' + pincode;
+			$.getJSON(req, null, function(data) {
+				$('#taluka').val(data.taluka);
+				$('#district').val(data.district);
+				$('#state').val(data.state);
+			});
+		};
+	});
+});
+</script>
+</body>
+</html>
